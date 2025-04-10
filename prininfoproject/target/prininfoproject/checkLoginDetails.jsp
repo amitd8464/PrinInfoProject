@@ -4,12 +4,12 @@
     String pwd = request.getParameter("password");
     Class.forName("com.mysql.jdbc.Driver");
     
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbname","root",
-    "dbpass");
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/prinInfo_project","root",
+    "");
     
     Statement st = con.createStatement();
     ResultSet rs;
-    rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd
+    rs = st.executeQuery("select * from User where username='" + userid + "' and password='" + pwd
     + "'");
 
     if (rs.next()) {
