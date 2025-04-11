@@ -28,7 +28,7 @@
         <input type="submit" value="Register">
     </form>
 
-    <small>Already have an account? Login <a href='login.html'>here</a></small>
+    <small>Already have an account? Login <a href='login.jsp'>here</a></small>
 
 </body>
 

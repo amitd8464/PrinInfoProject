@@ -17,7 +17,7 @@
         <input type="submit" value="Login">
     </form>
 
-    <small>Don't have an account? Register <a href='register.html'>here</a></small>
+    <small>Don't have an account? Register <a href='register.jsp'>here</a></small>
 
 </body>
 

@@ -21,7 +21,7 @@
     else {
         out.println("<script>");
         out.println("alert('Username or password is incorrect');");
-        out.println("window.location.href = 'login.html';");
+        out.println("window.location.href = 'login.jsp';");
         out.println("</script>");
     }
 %>

@@ -34,7 +34,7 @@ CREATE TABLE `User` (
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'test',NULL,NULL,'test_email@email.com','test_password','Customer'),(2,'test2','A','D','test2@gmail.com','pass','Customer'),(4,'test3','A','D','test3@gmail.com','pass','Customer'),(6,'test4','A','D','test4@gmail.com','pass','Customer'),(15,'test6','A','D','test6@gmail.com','pass','Customer'),(16,'test7','A','D','test7@gmail.com','pass','Customer'),(17,'test8','A','D','test8@gmail.com','pass','Customer'),(18,'test9','A','D','test9@gmail.com','pass','Customer'),(19,'test10','A','D','test10@gmail.com','pass','Customer'),(20,'test11','A','D','test11@gmail.com','pass','Rep');
+INSERT INTO `User` VALUES (1,'test',NULL,NULL,'test_email@email.com','test_password','Customer'),(2,'test2','A','D','test2@gmail.com','pass','Customer'),(4,'test3','A','D','test3@gmail.com','pass','Customer'),(6,'test4','A','D','test4@gmail.com','pass','Customer'),(15,'test6','A','D','test6@gmail.com','pass','Customer'),(16,'test7','A','D','test7@gmail.com','pass','Customer'),(17,'test8','A','D','test8@gmail.com','pass','Customer'),(18,'test9','A','D','test9@gmail.com','pass','Customer'),(19,'test10','A','D','test10@gmail.com','pass','Customer'),(20,'test11','A','D','test11@gmail.com','pass','Rep'),(21,'test_1','t','t','test_1@gmail.com','pass','Customer');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-10 22:44:01
+-- Dump completed on 2025-04-10 23:05:26

@@ -18,7 +18,7 @@
     }
     // otherwise, redirect user to login (session expired or somehow no longer exists)
     else{
-        response.sendRedirect("login.html");
+        response.sendRedirect("login.jsp");
         return;
     }
 
@@ -37,7 +37,7 @@
     }
     // user does not exist somehow, redirect to login
     else{
-        response.sendRedirect("login.html");
+        response.sendRedirect("login.jsp");
     }
 
     // Execute update statement and catch any errors

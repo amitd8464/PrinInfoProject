@@ -32,7 +32,7 @@
         ps.executeUpdate();
 
         session.setAttribute("user", username);
-        response.sendRedirect("chooseRole.html");
+        response.sendRedirect("chooseRole.jsp");
     }
     catch (SQLException e) {
         e.printStackTrace();
@@ -42,19 +42,19 @@
             
         out.println("<script>");
         out.println("alert('This username or email is already in use.');");
-        out.println("window.location.href = 'register.html';");
+        out.println("window.location.href = 'register.jsp';");
         out.println("</script>");
 
     } else {
         // Handle other SQL errors similarly, or forward with a generic error message
         out.println("<script>");
         out.println("alert('Database error occurred.');");
-        out.println("window.location.href = 'register.html';");
+        out.println("window.location.href = 'register.jsp';");
         out.println("</script>");
         /*
-        This will be used when register.html -> register.jsp
+        This will be used when register.jsp -> register.jsp
         request.setAttribute("errorMsg", "Database error: " + e.getMessage());
-        request.getRequestDispatcher("register.html").forward(request, response);
+        request.getRequestDispatcher("register.jsp").forward(request, response);
         */
     }
     }
