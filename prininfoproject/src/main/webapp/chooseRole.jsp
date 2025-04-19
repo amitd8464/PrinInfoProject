@@ -4,6 +4,15 @@
     <head>
         <title>Choose Role</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <style>
+            body, label, select {
+                font-size: 28px;
+            }
+
+            button {
+                font-size: 16px; /* Original/default size */
+            }
+        </style>
     </head>
 
     <body>
