@@ -70,3 +70,9 @@
 0:0:0:0:0:0:0:1 - - [18/Apr/2025:20:15:17 -0400] "GET /prininfoproject/success.jsp HTTP/1.1" 200 778 http-bio-8080-exec-3 1
 0:0:0:0:0:0:0:1 - - [18/Apr/2025:20:15:19 -0400] "GET /prininfoproject/logout.jsp HTTP/1.1" 302 - http-bio-8080-exec-3 2
 0:0:0:0:0:0:0:1 - - [18/Apr/2025:20:15:19 -0400] "GET /prininfoproject/login.jsp HTTP/1.1" 200 645 http-bio-8080-exec-3 3
+0:0:0:0:0:0:0:1 - - [18/Apr/2025:20:20:55 -0400] "GET /prininfoproject/login.jsp HTTP/1.1" 200 645 http-bio-8080-exec-1 28
+0:0:0:0:0:0:0:1 - - [18/Apr/2025:20:20:59 -0400] "GET /prininfoproject HTTP/1.1" 302 - http-bio-8080-exec-2 0
+0:0:0:0:0:0:0:1 - - [18/Apr/2025:20:20:59 -0400] "GET /prininfoproject/ HTTP/1.1" 200 267 http-bio-8080-exec-3 6
+0:0:0:0:0:0:0:1 - - [18/Apr/2025:20:21:00 -0400] "GET /prininfoproject/login.jsp HTTP/1.1" 200 645 http-bio-8080-exec-4 1
+0:0:0:0:0:0:0:1 - - [18/Apr/2025:20:21:04 -0400] "GET /prininfoproject/checkLoginDetails.jsp?username=project_test&password=pass HTTP/1.1" 302 - http-bio-8080-exec-5 310
+0:0:0:0:0:0:0:1 - - [18/Apr/2025:20:21:04 -0400] "GET /prininfoproject/success.jsp HTTP/1.1" 200 780 http-bio-8080-exec-6 2
