@@ -21,7 +21,7 @@
 
         String role = request.getParameter("role");
 
-        String query = "SELECT user_id FROM User WHERE username = ?";
+        String query = "SELECT user_id FROM Users WHERE username = ?";
         ps = con.prepareStatement(query);
         ps.setString(1, username);
         rs = ps.executeQuery();

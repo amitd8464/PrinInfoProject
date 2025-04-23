@@ -9,7 +9,7 @@
     
     Statement st = con.createStatement();
     ResultSet rs;
-    rs = st.executeQuery("select * from User where username='" + username + "' and password='" + password + "'");
+    rs = st.executeQuery("select * from Users where username='" + username + "' and password='" + password + "'");
 
     if (rs.next()) {
         session.setAttribute("user", username); // the username will be stored in the session

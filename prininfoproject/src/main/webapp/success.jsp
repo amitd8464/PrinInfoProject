@@ -43,6 +43,19 @@
 %>
         Welcome <%= username %><br/>
         Your role is: <%= role %><br/>
+
+        <br>
+        <a href="searchFlights.jsp">Search for a flight</a>
+        <br>
+
+        <%-- This will have an option to see past or future reservations --%>
+        <a href="viewReservations.jsp">View your reservations</a> 
+        <br>
+        
+        <a href="viewReservations.jsp">Need help? Submit a question or concern here</a>
+        <br>
+        <br>
+
         <a href="logout.jsp">Log out</a>
 <%
     }
