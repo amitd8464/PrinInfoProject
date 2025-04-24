@@ -25,26 +25,21 @@
 
         // First, SQL query for departing flights
 
-        String sql = "SELECT * FROM Flight WHERE dep_airport = ? AND dest_airport = ?";
-
+        StringBuilder sql = new StringBuilder("SELECT * FROM Flight WHERE dep_airport = ? AND dest_airport = ?");
         if (isFlexible) {
-            sql += " AND DATE(dep_time) BETWEEN DATE_SUB(?, INTERVAL 3 DAY) AND DATE_ADD(?, INTERVAL 3 DAY)";
+            sql.append(" AND DATE(dep_time) BETWEEN DATE_SUB(?, INTERVAL 3 DAY) AND DATE_ADD(?, INTERVAL 3 DAY)");
         } else {
-            sql += " AND DATE(dep_time) = ?";
+            sql.append(" AND DATE(dep_time) = ?");
         }
 
-        if (tripType == "roundtrip"){
-            sql += " AND DATE(dep_time) BETWEEN DATE_SUB(?, INTERVAL 3 DAY) AND DATE_ADD(?, INTERVAL 3 DAY)";
-        }
+        PreparedStatement stmt = conn.prepareStatement(sql.toString());
 
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, depAirport);
-        stmt.setString(2, destAirport);
+        int i = 1;
+        stmt.setString(i++, depAirport);
+        stmt.setString(i++, destAirport);
+        stmt.setString(i++, depDate);
         if (isFlexible) {
-            stmt.setString(3, depDate);
-            stmt.setString(4, depDate);
-        } else {
-            stmt.setString(3, depDate);
+            stmt.setString(i++, depDate);  // 4th param if flexible
         }
 
         ResultSet rs = stmt.executeQuery();
@@ -63,31 +58,28 @@
         }
 
         // Store in session
+        session.removeAttribute("departure_results");
         session.setAttribute("departure_results", departureFlights);
         
 
         // Next, we will query for returning flights if trip_type=="roundtrip"
 
-        if (tripType=="roundtrip"){
-            sql = "SELECT * FROM Flight WHERE dep_airport = ? AND dest_airport = ?";
-
+        if ("roundtrip".equalsIgnoreCase(tripType)){
+            sql = new StringBuilder("SELECT * FROM Flight WHERE dep_airport = ? AND dest_airport = ?");
             if (isFlexible) {
-                sql += " AND DATE(dep_time) BETWEEN DATE_SUB(?, INTERVAL 3 DAY) AND DATE_ADD(?, INTERVAL 3 DAY)";
+                sql.append(" AND DATE(dep_time) BETWEEN DATE_SUB(?, INTERVAL 3 DAY) AND DATE_ADD(?, INTERVAL 3 DAY)");
             } else {
-                sql += " AND DATE(dep_time) = ?";
+                sql.append(" AND DATE(dep_time) = ?");
             }
 
-            sql += " AND DATE(dep_time) = ?";
+            stmt = conn.prepareStatement(sql.toString());
 
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, destAirport);
-            stmt.setString(2, depAirport);
-
+            i = 1;
+            stmt.setString(i++, destAirport);
+            stmt.setString(i++, depAirport);
+            stmt.setString(i++, returnDate);
             if (isFlexible) {
-                stmt.setString(3, returnDate);
-                stmt.setString(4, returnDate);
-            } else {
-                stmt.setString(3, returnDate);
+                stmt.setString(i++, returnDate);  // 4th param if flexible
             }
             
             rs = stmt.executeQuery();
@@ -106,6 +98,7 @@
             }
 
             // Store in session
+            session.removeAttribute("return_results");
             session.setAttribute("return_results", returnFlights);
         }
 
