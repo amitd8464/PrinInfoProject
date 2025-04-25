@@ -1,5 +1,6 @@
     <%@ page import ="java.sql.*" %>
     <%@ page import="java.util.*" %>
+    <%@ page import="java.text.SimpleDateFormat, java.sql.Timestamp" %>
 
     <html>
     <head>
@@ -108,10 +109,10 @@
 
                 <div>
                     <label>Departure Date:</label>
-                    <input type="date" name="dep_date" /><br/>
+                    <input type="date" name="dep_date" required /><br/>
                 </div>
 
-                <div id="returnDateField" style="display:none;">
+                <div id="returnDateField" style="display:none;" required>
                     <label>Return Date:</label>
                     <input type="date" name="return_date" /><br/>
                 </div>
@@ -147,6 +148,8 @@
 
         boolean hasDepartures = departureFlights != null && !departureFlights.isEmpty();
         boolean hasReturns = returnFlights != null && !returnFlights.isEmpty();
+
+         SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM dd, yyyy, hh:mm a");
     %>
 
     <% if (hasDepartures) { %>
@@ -171,8 +174,8 @@
                     <td><%= flight.get("airline_id") %></td>
                     <td><%= flight.get("dep_airport") %></td>
                     <td><%= flight.get("dest_airport") %></td>
-                    <td><%= flight.get("dep_time") %></td>
-                    <td><%= flight.get("arr_time") %></td>
+                    <td><%= formatter.format((Timestamp) flight.get("dep_time")) %></td>
+                    <td><%= formatter.format((Timestamp) flight.get("arr_time")) %></td>
                     <td><%= flight.get("flight_type") %></td>
                     <td><%= flight.get("aircraft_id") %></td>
                 </tr>
@@ -203,8 +206,8 @@
                     <td><%= flight.get("airline_id") %></td>
                     <td><%= flight.get("dep_airport") %></td>
                     <td><%= flight.get("dest_airport") %></td>
-                    <td><%= flight.get("dep_time") %></td>
-                    <td><%= flight.get("arr_time") %></td>
+                    <td><%= formatter.format((Timestamp) flight.get("dep_time")) %></td>
+                    <td><%= formatter.format((Timestamp) flight.get("arr_time")) %></td>
                     <td><%= flight.get("flight_type") %></td>
                     <td><%= flight.get("aircraft_id") %></td>
                 </tr>
@@ -212,6 +215,12 @@
             </tbody>
         </table>
     <% } %>
+
+    <%
+    session.removeAttribute("departure_results");
+    session.removeAttribute("return_results");
+    %>
+
 
     <% if (!hasDepartures && !hasReturns) { %>
         <p>No flights found.</p>
