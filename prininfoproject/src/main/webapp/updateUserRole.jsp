@@ -41,7 +41,16 @@
         psUpdate.executeUpdate();
 
         session.setAttribute("role", role);
-        response.sendRedirect("success.jsp");
+        if (role == "Customer"){
+            response.sendRedirect("customerHome.jsp");
+        }
+        else if (role == "Rep"){
+            response.sendRedirect("representativeDashboard.jsp");
+        }
+        else if (role == "Admin"){
+            response.sendRedirect("adminDashboard.jsp");
+        }
+        
 
     } catch (SQLException e) {
         e.printStackTrace();

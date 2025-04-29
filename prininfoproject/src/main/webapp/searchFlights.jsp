@@ -39,7 +39,7 @@
 
     <body>
         <div class="navbar">
-            <a href="home.jsp">Home</a>
+            <a href="customerHome.jsp">Home</a>
             <a href="searchFlights.jsp">Search Flights</a>
             <a href="reservations.jsp">My Reservations</a>
             <a id="logout" href="logout.jsp">Log out</a>
@@ -139,17 +139,86 @@
     %>
         </div>
         
-        
+        <%
+    String sortBy = request.getParameter("sort_by");
+%>
+
+        <form method="get" style="margin-bottom: 20px;">
+            <label for="sort_by">Sort results by:</label>
+            <select name="sort_by" id="sort_by" onchange="this.form.submit()">
+                <option value="">-- Select --</option>
+                <option value="price" <%= "price".equals(sortBy) ? "selected" : "" %>>Price</option>
+                <option value="dep_time" <%= "dep_time".equals(sortBy) ? "selected" : "" %>>Take-off Time</option>
+                <option value="arr_time" <%= "arr_time".equals(sortBy) ? "selected" : "" %>>Landing Time</option>
+                <option value="duration" <%= "duration".equals(sortBy) ? "selected" : "" %>>Duration of Flight</option>
+            </select>
+        </form>
+
+
         <div id="flight_search_results_container">
 
     <%
         List<Map<String, Object>> departureFlights = (List<Map<String, Object>>) session.getAttribute("departure_results");
         List<Map<String, Object>> returnFlights = (List<Map<String, Object>>) session.getAttribute("return_results");
 
+        Comparator<Map<String, Object>> comparator = null;
+
+        if ("price".equals(sortBy)) {
+            comparator = new Comparator<Map<String, Object>>() {
+                public int compare(Map<String, Object> f1, Map<String, Object> f2) {
+                    Double p1 = (Double) f1.get("price");
+                    Double p2 = (Double) f2.get("price");
+                    return p1.compareTo(p2);
+                }
+            };
+        }
+        else if ("dep_time".equals(sortBy)) {
+            comparator = new Comparator<Map<String, Object>>() {
+                public int compare(Map<String, Object> f1, Map<String, Object> f2) {
+                    Timestamp t1 = (Timestamp) f1.get("dep_time");
+                    Timestamp t2 = (Timestamp) f2.get("dep_time");
+                    return t1.compareTo(t2);
+                }
+            };
+        }
+        else if ("arr_time".equals(sortBy)) {
+            comparator = new Comparator<Map<String, Object>>() {
+                public int compare(Map<String, Object> f1, Map<String, Object> f2) {
+                    Timestamp a1 = (Timestamp) f1.get("arr_time");
+                    Timestamp a2 = (Timestamp) f2.get("arr_time");
+                    return a1.compareTo(a2);
+                }
+            };
+        }
+        else if ("duration".equals(sortBy)) {
+            comparator = new Comparator<Map<String, Object>>() {
+                public int compare(Map<String, Object> f1, Map<String, Object> f2) {
+                    Integer d1 = (Integer) f1.get("duration_minutes");
+                    Integer d2 = (Integer) f2.get("duration_minutes");
+                    if (d1 == null && d2 == null) return 0;
+                    if (d1 == null) return 1;
+                    if (d2 == null) return -1;
+                    return d1.compareTo(d2);
+                }
+            };
+        }        
+        
+        if (comparator != null) {
+            if (departureFlights != null) {
+                Collections.sort(departureFlights, comparator);
+            }
+            if (returnFlights != null) {
+                Collections.sort(returnFlights, comparator);
+            }
+        }
+        
+
         boolean hasDepartures = departureFlights != null && !departureFlights.isEmpty();
         boolean hasReturns = returnFlights != null && !returnFlights.isEmpty();
 
-         SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM dd, yyyy, hh:mm a");
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM dd, yyyy, hh:mm a");
+
+        
     %>
 
     <% if (hasDepartures) { %>
@@ -157,25 +226,43 @@
         <table class="flights-table">
             <thead>
                 <tr>
+                    <th>Price</th>
                     <th>Flight #</th>
                     <th>Airline</th>
                     <th>Departure</th>
                     <th>Destination</th>
                     <th>Departure Time</th>
                     <th>Arrival Time</th>
+                    <th>Flight Duration</th>
                     <th>Type</th>
                     <th>Aircraft</th>
                 </tr>
             </thead>
             <tbody>
-            <% for (Map<String, Object> flight : departureFlights) { %>
+            <% for (Map<String, Object> flight : departureFlights) { 
+                
+                // making "duration_minutes" more readable
+
+                Integer duration = (Integer) flight.get("duration_minutes");
+                String durationDisplay = "";
+                if (duration != null) {
+                    int hours = duration / 60;
+                    int minutes = duration % 60;
+                    if (hours > 0) {
+                        durationDisplay += hours + " h ";
+                    }
+                    durationDisplay += minutes + " min";
+                } 
+        %>
                 <tr>
+                    <td>$<%= flight.get("price") %></td>
                     <td><%= flight.get("flight_number") %></td>
                     <td><%= flight.get("airline_id") %></td>
                     <td><%= flight.get("dep_airport") %></td>
                     <td><%= flight.get("dest_airport") %></td>
                     <td><%= formatter.format((Timestamp) flight.get("dep_time")) %></td>
                     <td><%= formatter.format((Timestamp) flight.get("arr_time")) %></td>
+                    <td><%= durationDisplay %></td>
                     <td><%= flight.get("flight_type") %></td>
                     <td><%= flight.get("aircraft_id") %></td>
                 </tr>
@@ -189,25 +276,44 @@
         <table class="flights-table">
             <thead>
                 <tr>
+                    <th>Price</th>
                     <th>Flight #</th>
                     <th>Airline</th>
                     <th>Departure</th>
                     <th>Destination</th>
                     <th>Departure Time</th>
                     <th>Arrival Time</th>
+                    <th>Flight Duration</th>
                     <th>Type</th>
                     <th>Aircraft</th>
                 </tr>
             </thead>
             <tbody>
-            <% for (Map<String, Object> flight : returnFlights) { %>
+            <% for (Map<String, Object> flight : returnFlights) {
+                
+                // making "duration_minutes" more readable
+
+                Integer duration = (Integer) flight.get("duration_minutes");
+                String durationDisplay = "";
+                if (duration != null) {
+                    int hours = duration / 60;
+                    int minutes = duration % 60;
+                    if (hours > 0) {
+                        durationDisplay += hours + " h ";
+                    }
+                    durationDisplay += minutes + " min";
+                }     
+            
+            %>
                 <tr>
+                    <td>$<%= flight.get("price") %></td>
                     <td><%= flight.get("flight_number") %></td>
                     <td><%= flight.get("airline_id") %></td>
                     <td><%= flight.get("dep_airport") %></td>
                     <td><%= flight.get("dest_airport") %></td>
                     <td><%= formatter.format((Timestamp) flight.get("dep_time")) %></td>
                     <td><%= formatter.format((Timestamp) flight.get("arr_time")) %></td>
+                    <td><%= durationDisplay %></td>
                     <td><%= flight.get("flight_type") %></td>
                     <td><%= flight.get("aircraft_id") %></td>
                 </tr>
@@ -217,8 +323,7 @@
     <% } %>
 
     <%
-    session.removeAttribute("departure_results");
-    session.removeAttribute("return_results");
+    
     %>
 
 

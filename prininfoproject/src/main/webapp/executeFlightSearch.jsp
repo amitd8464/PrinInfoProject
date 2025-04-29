@@ -54,6 +54,8 @@
             flight.put("arr_time", rs.getTimestamp("arr_time"));
             flight.put("flight_type", rs.getString("flight_type"));
             flight.put("aircraft_id", rs.getString("aircraft_id"));
+            flight.put("price", rs.getDouble("price"));
+            flight.put("duration_minutes", rs.getInt("duration_minutes"));
             departureFlights.add(flight);
         }
 
@@ -94,11 +96,16 @@
                 flight.put("arr_time", rs.getTimestamp("arr_time"));
                 flight.put("flight_type", rs.getString("flight_type"));
                 flight.put("aircraft_id", rs.getString("aircraft_id"));
+                flight.put("price", rs.getDouble("price"));
+                flight.put("duration_minutes", rs.getInt("duration_minutes"));
                 returnFlights.add(flight);
             }
 
             // Store in session
+            session.removeAttribute("departure_results");
             session.removeAttribute("return_results");
+            
+            session.setAttribute("departure_results", departureFlights);
             session.setAttribute("return_results", returnFlights);
         }
 

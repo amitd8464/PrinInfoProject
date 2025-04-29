@@ -36,7 +36,7 @@ CREATE TABLE `Aircraft` (
 
 LOCK TABLES `Aircraft` WRITE;
 /*!40000 ALTER TABLE `Aircraft` DISABLE KEYS */;
-INSERT INTO `Aircraft` VALUES ('A319','Mclaughlin and Sons A319',245),('A320','West Ltd A320',350),('A380','Johnson PLC A380',399),('B737','Smith-Ward B737',196),('B767','Miller-Stevens B767',329),('B777','Davis-Harper B777',230),('B787','Alexander PLC B787',203),('CRJ7','Hall, King and Harvey CRJ7',465),('E190','Fernandez, Holt and Brown E190',130),('MD80','Fisher, Bennett and Odonnell MD80',284);
+INSERT INTO `Aircraft` VALUES ('A319','Mclaughlin and Sons A319',245),('A320','West Ltd A320',350),('A321','Airbus A321',185),('A380','Johnson PLC A380',399),('B737','Smith-Ward B737',196),('B738','Boeing 737-800',160),('B739','Boeing 737-900',170),('B757','Boeing 757',200),('B767','Miller-Stevens B767',329),('B777','Davis-Harper B777',230),('B787','Alexander PLC B787',203),('CRJ7','Hall, King and Harvey CRJ7',465),('E190','Fernandez, Holt and Brown E190',130),('MD80','Fisher, Bennett and Odonnell MD80',284);
 /*!40000 ALTER TABLE `Aircraft` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,6 +159,8 @@ CREATE TABLE `Flight` (
   `dep_time` timestamp NOT NULL,
   `arr_time` timestamp NOT NULL,
   `aircraft_id` varchar(10) NOT NULL,
+  `price` decimal(8,2) DEFAULT NULL,
+  `duration_minutes` int GENERATED ALWAYS AS (timestampdiff(MINUTE,`dep_time`,`arr_time`)) STORED,
   PRIMARY KEY (`flight_number`,`airline_id`),
   KEY `airline_id` (`airline_id`),
   KEY `dep_airport` (`dep_airport`),
@@ -177,34 +179,33 @@ CREATE TABLE `Flight` (
 
 LOCK TABLES `Flight` WRITE;
 /*!40000 ALTER TABLE `Flight` DISABLE KEYS */;
-INSERT INTO `Flight` VALUES (1000,'AA','ORD','JFK','Domestic','2025-05-13 15:00:00','2025-05-14 00:00:00','CRJ7'),(1001,'DL','DFW','ORD','International','2025-05-22 12:00:00','2025-05-22 19:00:00','A380'),(1002,'UA','MIA','LAX','Domestic','2025-05-09 12:00:00','2025-05-09 20:00:00','A320'),(1003,'BA','ORD','LAX','Domestic','2025-05-02 09:00:00','2025-05-02 19:00:00','MD80'),(1004,'SW','LAX','SFO','International','2025-05-14 17:00:00','2025-05-15 02:00:00','B777'),(1005,'FR','DEN','LHR','International','2025-05-05 19:00:00','2025-05-06 04:00:00','B767'),(1006,'LH','ATL','DEN','Domestic','2025-05-17 00:00:00','2025-05-17 07:00:00','A319'),(1007,'AF','JFK','SFO','Domestic','2025-05-04 22:00:00','2025-05-05 00:00:00','B787'),(1008,'EK','DFW','DEN','International','2025-05-20 19:00:00','2025-05-21 04:00:00','B737'),(1009,'QR','SEA','DEN','International','2025-05-01 22:00:00','2025-05-02 02:00:00','B737');
+INSERT INTO `Flight` (`flight_number`, `airline_id`, `dep_airport`, `dest_airport`, `flight_type`, `dep_time`, `arr_time`, `aircraft_id`, `price`) VALUES (1002,'AA','JFK','ORD','Domestic','2025-05-01 11:00:00','2025-05-01 13:00:00','A320',180.00),(1003,'AA','JFK','ATL','Domestic','2025-05-01 16:00:00','2025-05-01 18:15:00','B737',210.00),(1004,'AA','LAX','ATL','Domestic','2025-05-04 17:00:00','2025-05-04 21:30:00','A320',290.00),(1005,'AA','ORD','JFK','Domestic','2025-05-05 13:30:00','2025-05-05 15:45:00','B737',185.00),(2003,'DL','ATL','JFK','Domestic','2025-05-01 19:00:00','2025-05-01 21:15:00','A320',195.00),(2004,'DL','ATL','LAX','Domestic','2025-05-02 12:30:00','2025-05-02 15:30:00','B737',310.00),(2005,'DL','ATL','ORD','Domestic','2025-05-03 14:00:00','2025-05-03 15:45:00','A320',200.00),(2006,'DL','ATL','JFK','Domestic','2025-05-03 21:00:00','2025-05-03 23:00:00','B737',210.00),(3001,'DL','LAX','MIA','Domestic','2025-05-01 10:00:00','2025-05-01 18:00:00','A320',220.00),(3002,'DL','LAX','MIA','Domestic','2025-05-01 13:30:00','2025-05-01 21:15:00','B738',250.00),(3003,'DL','LAX','MIA','Domestic','2025-05-01 16:00:00','2025-05-01 23:45:00','B739',260.00),(3004,'DL','LAX','MIA','Domestic','2025-05-01 19:45:00','2025-05-02 03:30:00','A321',270.00),(3005,'DL','LAX','MIA','Domestic','2025-05-02 02:30:00','2025-05-02 10:15:00','B757',210.00),(3006,'UA','JFK','LHR','International','2025-05-04 01:00:00','2025-05-04 12:00:00','B777',890.00),(3007,'UA','LHR','ATL','International','2025-05-04 20:00:00','2025-05-05 00:00:00','B777',920.00),(3008,'UA','ORD','LHR','International','2025-05-01 22:00:00','2025-05-02 10:45:00','B777',870.00),(3009,'UA','LHR','ORD','International','2025-05-02 14:00:00','2025-05-02 17:15:00','B777',880.00),(4001,'AA','MIA','LAX','Domestic','2025-05-07 10:00:00','2025-05-07 12:30:00','A321',230.00),(4002,'AA','MIA','LAX','Domestic','2025-05-07 13:00:00','2025-05-07 15:35:00','B738',240.00),(4003,'AA','MIA','LAX','Domestic','2025-05-07 17:30:00','2025-05-07 20:05:00','B739',260.00),(4004,'AA','MIA','LAX','Domestic','2025-05-07 21:00:00','2025-05-07 23:35:00','A320',265.00),(4005,'AA','MIA','LAX','Domestic','2025-05-08 00:30:00','2025-05-08 03:05:00','B757',225.00),(4006,'BA','LHR','ATL','International','2025-05-06 14:00:00','2025-05-06 17:45:00','A380',1020.00),(4007,'BA','LHR','LAX','International','2025-05-06 21:00:00','2025-05-07 02:00:00','A380',1145.00),(4008,'BA','LHR','ORD','International','2025-05-05 15:00:00','2025-05-05 18:30:00','A380',975.00),(5001,'AA','ATL','ORD','Domestic','2025-05-08 12:00:00','2025-05-08 14:00:00','B738',215.00),(5002,'DL','JFK','MIA','Domestic','2025-05-08 15:00:00','2025-05-08 18:00:00','A320',250.00),(5003,'BA','LAX','LHR','International','2025-05-08 20:00:00','2025-05-09 12:00:00','A380',1180.00),(5004,'UA','ATL','LHR','International','2025-05-08 21:00:00','2025-05-09 11:00:00','B777',945.00);
 /*!40000 ALTER TABLE `Flight` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Operating_Days`
+-- Table structure for table `operating_days`
 --
 
-DROP TABLE IF EXISTS `Operating_Days`;
+DROP TABLE IF EXISTS `operating_days`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Operating_Days` (
+CREATE TABLE `operating_days` (
   `flight_number` int NOT NULL,
   `airline_id` char(2) NOT NULL,
   `day` enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday') NOT NULL,
   PRIMARY KEY (`flight_number`,`airline_id`,`day`),
-  CONSTRAINT `operating_days_ibfk_1` FOREIGN KEY (`flight_number`, `airline_id`) REFERENCES `Flight` (`flight_number`, `airline_id`)
+  CONSTRAINT `operating_days_ibfk_1` FOREIGN KEY (`flight_number`, `airline_id`) REFERENCES `flight` (`flight_number`, `airline_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Operating_Days`
+-- Dumping data for table `operating_days`
 --
 
-LOCK TABLES `Operating_Days` WRITE;
-/*!40000 ALTER TABLE `Operating_Days` DISABLE KEYS */;
-INSERT INTO `Operating_Days` VALUES (1000,'AA','Friday'),(1000,'AA','Saturday'),(1000,'AA','Sunday'),(1001,'DL','Tuesday'),(1001,'DL','Thursday'),(1001,'DL','Sunday'),(1002,'UA','Friday'),(1002,'UA','Saturday'),(1002,'UA','Sunday'),(1003,'BA','Tuesday'),(1003,'BA','Wednesday'),(1003,'BA','Sunday'),(1004,'SW','Monday'),(1004,'SW','Friday'),(1004,'SW','Saturday'),(1005,'FR','Monday'),(1005,'FR','Tuesday'),(1005,'FR','Thursday'),(1006,'LH','Monday'),(1006,'LH','Friday'),(1006,'LH','Saturday'),(1007,'AF','Monday'),(1007,'AF','Tuesday'),(1007,'AF','Sunday'),(1008,'EK','Tuesday'),(1008,'EK','Thursday'),(1008,'EK','Saturday'),(1009,'QR','Monday'),(1009,'QR','Thursday'),(1009,'QR','Sunday');
-/*!40000 ALTER TABLE `Operating_Days` ENABLE KEYS */;
+LOCK TABLES `operating_days` WRITE;
+/*!40000 ALTER TABLE `operating_days` DISABLE KEYS */;
+/*!40000 ALTER TABLE `operating_days` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -367,4 +368,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-23 16:14:55
+-- Dump completed on 2025-04-29 11:39:13
