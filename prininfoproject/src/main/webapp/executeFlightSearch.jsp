@@ -60,8 +60,9 @@
         }
 
         // Store in session
-        session.removeAttribute("departure_results");
-        session.setAttribute("departure_results", departureFlights);
+        session.removeAttribute("raw_departure_results");
+        session.setAttribute("raw_departure_results", departureFlights);
+
         
 
         // Next, we will query for returning flights if trip_type=="roundtrip"
@@ -105,8 +106,8 @@
             session.removeAttribute("departure_results");
             session.removeAttribute("return_results");
             
-            session.setAttribute("departure_results", departureFlights);
-            session.setAttribute("return_results", returnFlights);
+            session.setAttribute("raw_departure_results", departureFlights);
+            session.setAttribute("raw_return_results", returnFlights);
         }
 
         
