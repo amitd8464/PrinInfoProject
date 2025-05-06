@@ -11,37 +11,34 @@
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/prinInfo_project", "root", "");
 
-        String username = null;
+        int user_id = -1;
         if (session != null) {
-            username = (String) session.getAttribute("user");
+            user_id = (Integer) session.getAttribute("user");
         } else {
             response.sendRedirect("login.jsp");
             return;
         }
 
         String role = request.getParameter("role");
+        out.println("Selected role: " + role);
 
-        String query = "SELECT user_id FROM User WHERE username = ?";
-        ps = con.prepareStatement(query);
-        ps.setString(1, username);
-        rs = ps.executeQuery();
-
-        long userId = -1;
-        if (rs.next()) {
-            userId = rs.getLong("user_id");
-        } else {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-
-        String update = "UPDATE User SET role=? WHERE user_id=?";
+        String update = "UPDATE Users SET role=? WHERE user_id=?";
         psUpdate = con.prepareStatement(update);
         psUpdate.setString(1, role);
-        psUpdate.setLong(2, userId);
+        psUpdate.setInt(2, user_id);
         psUpdate.executeUpdate();
 
         session.setAttribute("role", role);
-        response.sendRedirect("success.jsp");
+        if ("Customer".equals(role)){
+            response.sendRedirect("customerHome.jsp");
+        }
+        else if ("Rep".equals(role)){
+            response.sendRedirect("representativeDashboard.jsp");
+        }
+        else if ("Admin".equals(role)){
+            response.sendRedirect("adminDashboard.jsp");
+        }
+        
 
     } catch (SQLException e) {
         e.printStackTrace();

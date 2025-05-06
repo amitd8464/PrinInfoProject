@@ -38,11 +38,24 @@
         <a href="login.jsp">Please Login</a>
 <%
     } else {
-        String username = (String) session.getAttribute("user");
+        Integer user_id = (Integer) session.getAttribute("user");
         String role = (String) session.getAttribute("role");
 %>
-        Welcome <%= username %><br/>
+        Welcome User ID: <%= user_id %><br/>
         Your role is: <%= role %><br/>
+
+        <br>
+        <a href="searchFlights.jsp">Search for a flight</a>
+        <br>
+
+        <%-- This will have an option to see past or future reservations --%>
+        <a href="viewReservations.jsp">View your reservations</a> 
+        <br>
+        
+        <a href="viewReservations.jsp">Need help? Submit a question or concern here</a>
+        <br>
+        <br>
+
         <a href="logout.jsp">Log out</a>
 <%
     }

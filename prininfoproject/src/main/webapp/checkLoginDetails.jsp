@@ -9,21 +9,32 @@
     
     Statement st = con.createStatement();
     ResultSet rs;
-    rs = st.executeQuery("select * from User where username='" + username + "' and password='" + password + "'");
+    PreparedStatement ps = con.prepareStatement("SELECT * FROM Users WHERE username = ? AND password = ?");
+    ps.setString(1, username);
+    ps.setString(2, password);
+    rs = ps.executeQuery();
+
 
     if (rs.next()) {
-        session.setAttribute("user", username); // the username will be stored in the session
+        
+        session.setAttribute("user", rs.getInt("user_id")); // the user_id will be stored in the session
         String role = rs.getString("role");
         session.setAttribute("role", role); // the username will be stored in the session
 
-        out.println("welcome " + username);
-        out.println("<a href='logout.jsp'>Log out</a>");
-        response.sendRedirect("success.jsp");
+        if ("Customer".equals(role)){
+            response.sendRedirect("customerHome.jsp");
+        }
+        else if ("Rep".equals(role)){
+            response.sendRedirect("representativeDashboard.jsp");
+        }
+        else if ("Admin".equals(role)){
+            response.sendRedirect("adminDashboard.jsp");
+        }
     }
-    else {
-        out.println("<script>");
-        out.println("alert('Username or password is incorrect');");
-        out.println("window.location.href = 'login.jsp';");
-        out.println("</script>");
+    else { %>
+        <script>
+            alert('Username or password is incorrect');
+            window.location.href = 'login.jsp';
+        </script> <%
     }
 %>
