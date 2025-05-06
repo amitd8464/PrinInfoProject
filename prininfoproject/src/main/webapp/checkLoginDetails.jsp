@@ -16,7 +16,8 @@
 
 
     if (rs.next()) {
-        session.setAttribute("user", username); // the username will be stored in the session
+        
+        session.setAttribute("user", rs.getInt("user_id")); // the user_id will be stored in the session
         String role = rs.getString("role");
         session.setAttribute("role", role); // the username will be stored in the session
 

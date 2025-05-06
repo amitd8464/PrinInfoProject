@@ -38,10 +38,10 @@
         <a href="login.jsp">Please Login</a>
 <%
     } else {
-        String username = (String) session.getAttribute("user");
+        Integer user_id = (Integer) session.getAttribute("user");
         String role = (String) session.getAttribute("role");
 %>
-        Welcome <%= username %><br/>
+        Welcome User ID: <%= user_id %><br/>
         Your role is: <%= role %><br/>
 
         <br>

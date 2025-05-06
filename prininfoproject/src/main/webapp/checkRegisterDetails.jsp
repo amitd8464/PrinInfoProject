@@ -14,7 +14,7 @@
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
 
-        String sql = "INSERT INTO user (email, username, password, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Users (email, username, password, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
         ps = con.prepareStatement(sql);
         ps.setString(1, email);
         ps.setString(2, username);
@@ -24,8 +24,18 @@
 
         ps.executeUpdate();
 
-        session.setAttribute("user", username);
-        response.sendRedirect("chooseRole.jsp");
+        String user_id_query = "SELECT user_id FROM Users WHERE username=?";
+        ps = con.prepareStatement(user_id_query);
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            session.setAttribute("user", rs.getInt("user_id"));
+            response.sendRedirect("chooseRole.jsp");
+        } else {
+            // Handle error: user not found
+            out.println("User registration failed. Please try again.");
+        }
 
     } catch (SQLException e) {
         e.printStackTrace();
