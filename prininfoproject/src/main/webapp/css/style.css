@@ -5,11 +5,18 @@ body {
     background-color: #ffffff;
     margin: 0;
     padding: 0;
+}
+
+.page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+}
+
+#role{
+    font-size: 10;
 }
 
 .navbar {
@@ -165,3 +172,24 @@ select {
     margin-top: 30px;    
 }
 
+#continueButton {
+    background-color: #1877F2;
+    color: white;
+    padding: 18px 10px;
+    font-size: 20px;
+    font-weight: 600;
+    border: none;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin: 30px auto 0;
+    display: none; /* hidden by default */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(24, 119, 242, 0.15);
+    cursor: pointer;
+}
+
+#continueButton:hover {
+    background-color: #145db2;
+    transform: translateY(-1px);
+}

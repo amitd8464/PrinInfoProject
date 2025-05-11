@@ -1,0 +1,54 @@
+First, check if departure flight is full: 
+
+session.getAttribute("depAtCapacity")
+
+If yes, show an alert to user ("Your selected departure flight is full! Would you like to enter the waitlist for that flight?")
+
+  If user confirms, add them to the waitlist:
+      WaitList:
+        // customer_id --> session.getAttribute("user") 
+        // flight_number --> session.getAttribute("selected_departure_flight") AND / OR session.getAttribute("selected_return_flight")
+    
+    Then, redirect to Reservations / Waitlist page
+
+  If user cancels, then redirect to searchFlight.jsp
+
+If departure flight is NOT full:
+
+  Create Reservation:
+      Reservation:
+        // customer_id --> session.getAttribute("user") 
+        // flight_number --> session.getAttribute("selected_departure_flight") AND / OR session.getAttribute("selected_return_flight")
+        // total_fare --> session.getAttribute("final_price")
+        // booking_fee --> NOT IMPLEMENTED YET
+
+  Then, get the newly created Reservation ID: 
+    try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+      if (generatedKeys.next()) {
+          int reservationId = generatedKeys.getInt(1);  // the auto-increment PK
+          System.out.println("Generated Reservation ID: " + reservationId);
+      } else {
+          throw new SQLException("Inserting reservation failed, no ID obtained.");
+      }
+    }
+  
+  Then, create Ticket(s):
+
+    Ticket (create one for Departure and Reservation, if exists):
+      // seat_number --> query the following to determine seat number:
+
+        1. SELECT aircraft_id FROM Flight WHERE flight_number = ?;
+        2. SELECT num_of_seats FROM Aircraft WHERE aircraft_id = ?;
+        3. SELECT COUNT(*) FROM Ticket WHERE flight_number = ?;
+        if (count < num_of_seats) { seat_number = count + 1; }
+
+      // travel_class --> session.getAttribute("travel_class")
+      // departure_date --> session.getAttribute("selected_departure_flight").get("dep_time") -> parse date
+      // passenger_first_name --> query using user_id
+      // passenger_last_name --> query using user_id
+      // passenger_id --> session.getAttribute("user")
+      // flight_number --> session.getAttribute("selected_departure_flight") AND / OR session.getAttribute("selected_return_flight")
+      // reservation_id --> reservationId (from above)
+    
+  Finally, redirect to Reservations page
+    ( on that page, each reservation and possibly waitlist will show up. Clicking on a Reservation will lead to a page that shows Ticket(s) )

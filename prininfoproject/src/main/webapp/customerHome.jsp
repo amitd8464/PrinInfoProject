@@ -49,7 +49,7 @@
         <br>
 
         <%-- This will have an option to see past or future reservations --%>
-        <a href="viewReservations.jsp">View your reservations</a> 
+        <a href="customerReservations.jsp">View your reservations</a> 
         <br>
         
         <a href="viewReservations.jsp">Need help? Submit a question or concern here</a>
