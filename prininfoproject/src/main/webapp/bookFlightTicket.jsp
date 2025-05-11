@@ -29,7 +29,7 @@
       } else {
           session.removeAttribute("selected_return_flight");
       }
-      
+
 
     Map<String, Object> depFlight = (Map<String, Object>) session.getAttribute("selected_departure_flight");
     Map<String, Object> retFlight = (Map<String, Object>) session.getAttribute("selected_return_flight");
@@ -203,12 +203,16 @@
 
 <%
     
-    if (depFlight != null && depFlight.get("atCapacity") != null) {
-        session.setAttribute("depAtCapacity", Boolean.FALSE);
-    }
-    if (retFlight != null){
-        session.setAttribute("retAtCapacity", Boolean.FALSE);
-    }
+if (depFlight != null && depFlight.get("atCapacity") != null) {
+  boolean isFull = ((Integer) depFlight.get("atCapacity")) == 1;
+  session.setAttribute("depAtCapacity", isFull);
+}
+
+if (retFlight != null && retFlight.get("atCapacity") != null) {
+  boolean isFull = ((Integer) retFlight.get("atCapacity")) == 1;
+  session.setAttribute("retAtCapacity", isFull);
+}
+
 
 
 %>

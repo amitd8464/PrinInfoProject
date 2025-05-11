@@ -79,7 +79,7 @@
         .tab.active { background-color: #007bff; color: white; border-color: #007bff; }
         .card { padding: 15px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 10px; transition: 0.2s; }
         .card:hover { background-color: #f9f9f9; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .tab-content { display: none; }
+        .tab-content { display: none; padding: 20px;}
         .tab-content.active { display: block; }
     </style>
     <script>
@@ -111,7 +111,6 @@
                         <strong>Total Fare:</strong> $<%= res.get("total_fare") %><br/>
                         <strong>Booking Fee:</strong> $<%= res.get("booking_fee") %><br/>
                         <strong>Booked At:</strong> <%= res.get("booked_at") %>
-                        <button type="submit" style="padding: 14px 28px; font-size: 18px; background-color: #1877F2; color: white; border: none; border-radius: 10px; margin-left: 20px;">View Reservation</button>
                     </div>
                 </form>
             <% } %>
@@ -124,13 +123,10 @@
             <p>No waitlisted flights found.</p>
         <% } else { %>
             <% for (Map<String, Object> wl : waitlist) { %>
-                <form action="viewWaitList.jsp?waitlist_id=<%= wl.get("waitlist_id") %>" method="post">
-                    <div class="card">
-                        <strong>Flight:</strong> <%= wl.get("flight_number") %><br/>
-                        <strong>Requested At:</strong> <%= wl.get("request_time") %>
-                        <button type="submit" style="padding: 14px 28px; font-size: 18px; background-color: #1877F2; color: white; border: none; border-radius: 10px; margin-left: 20px;">View Waitlist Request</button>
-                    </div>
-                </form>
+                <div class="card">
+                    <strong>Flight:</strong> <%= wl.get("flight_number") %><br/>
+                    <strong>Requested At:</strong> <%= wl.get("request_time") %>
+                </div>                
             <% } %>
         <% } %>
     </div>
@@ -141,14 +137,14 @@
             <p>No tickets found.</p>
         <% } else { %>
             <% for (Map<String, Object> t : tickets) { %>
-                <form action="viewTicket.jsp?ticket_number=<%= t.get("ticket_number") %>" method="post">
-                    <div class="card">
+                <div class="card">
+                    <form action="viewTicket.jsp?ticket_number=<%= t.get("ticket_number") %>" method="post" style="display: inline;">
                         <h3>Departure Flight</h3>
                         <strong>Flight:</strong> <%= t.get("dep_flight_number") %><br/>
                         <strong>Fare:</strong> $<%= t.get("dep_fare") != null ? t.get("dep_fare") : "N/A" %><br/>
                         <strong>Booking Fee:</strong> $<%= t.get("dep_fee") != null ? t.get("dep_fee") : "N/A" %><br/>
                         <strong>Booked At:</strong> <%= t.get("dep_time") != null ? t.get("dep_time") : "N/A" %><br/><br/>
-
+                
                         <% if (t.get("ret_flight_number") != null) { %>
                             <h3>Return Flight</h3>
                             <strong>Flight:</strong> <%= t.get("ret_flight_number") %><br/>
@@ -156,10 +152,17 @@
                             <strong>Booking Fee:</strong> $<%= t.get("ret_fee") != null ? t.get("ret_fee") : "N/A" %><br/>
                             <strong>Booked At:</strong> <%= t.get("ret_time") != null ? t.get("ret_time") : "N/A" %><br/>
                         <% } %>
-
+                
                         <button type="submit" style="padding: 14px 28px; font-size: 18px; background-color: #1877F2; color: white; border: none; border-radius: 10px; margin-top: 10px;">View Ticket</button>
-                    </div>
-                </form>
+                    </form>
+                
+                    <!-- Cancel Ticket Form (outside the first one) -->
+                    <form action="cancelTicket.jsp" method="post" onsubmit="return confirm('Are you sure you want to cancel this ticket?');" style="display: inline;">
+                        <input type="hidden" name="ticket_number" value="<%= t.get("ticket_number") %>" />
+                        <button type="submit" style="padding: 14px 28px; font-size: 18px; background-color: #dc3545; color: white; border: none; border-radius: 10px; margin-top: 10px;">Cancel Ticket</button>
+                    </form>
+                </div>
+                
             <% } %>
         <% } %>
     </div>
