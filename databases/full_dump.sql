@@ -230,7 +230,7 @@ CREATE TABLE `Reservation` (
   KEY `fk_flight` (`flight_number`),
   CONSTRAINT `fk_customer` FOREIGN KEY (`customer_id`) REFERENCES `Users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_flight` FOREIGN KEY (`flight_number`) REFERENCES `Flight` (`flight_number`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,7 +239,7 @@ CREATE TABLE `Reservation` (
 
 LOCK TABLES `Reservation` WRITE;
 /*!40000 ALTER TABLE `Reservation` DISABLE KEYS */;
-INSERT INTO `Reservation` VALUES (9,38,3003,1250.00,75.00,'2025-05-09 18:19:08'),(10,38,4002,1250.00,75.00,'2025-05-09 18:19:08'),(11,39,3003,2600.00,78.00,'2025-05-11 10:01:45'),(12,39,4003,2600.00,78.00,'2025-05-11 10:01:45'),(13,39,3002,2550.00,76.50,'2025-05-11 10:27:46'),(14,39,4003,2550.00,76.50,'2025-05-11 10:27:46');
+INSERT INTO `Reservation` VALUES (16,40,3002,1250.00,37.50,'2025-05-11 11:10:16');
 /*!40000 ALTER TABLE `Reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -328,8 +328,9 @@ CREATE TABLE `Ticket` (
   `ret_seat_number` int DEFAULT NULL,
   `ret_flight_number` int DEFAULT NULL,
   PRIMARY KEY (`ticket_number`),
+  UNIQUE KEY `unique_user_dep` (`passenger_id`,`dep_flight_number`),
+  UNIQUE KEY `unique_user_ret` (`passenger_id`,`ret_flight_number`),
   KEY `fk_ticket_flight` (`dep_flight_number`),
-  KEY `fk_ticket_user` (`passenger_id`),
   KEY `fk_ticket_dep_reservation` (`dep_reservation_id`),
   KEY `fk_ticket_return_reservation` (`return_reservation_id`),
   KEY `fk_ticket_ret_flight` (`ret_flight_number`),
@@ -338,7 +339,7 @@ CREATE TABLE `Ticket` (
   CONSTRAINT `fk_ticket_ret_flight` FOREIGN KEY (`ret_flight_number`) REFERENCES `Flight` (`flight_number`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_ticket_return_reservation` FOREIGN KEY (`return_reservation_id`) REFERENCES `Reservation` (`reservation_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_ticket_user` FOREIGN KEY (`passenger_id`) REFERENCES `Users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -347,7 +348,7 @@ CREATE TABLE `Ticket` (
 
 LOCK TABLES `Ticket` WRITE;
 /*!40000 ALTER TABLE `Ticket` DISABLE KEYS */;
-INSERT INTO `Ticket` VALUES (2,'Business','2025-05-01','A','D','2025-05-09 18:19:08',3003,38,9,'2025-05-07',10,1,1,4002),(3,'First','2025-05-01','A','D','2025-05-11 10:01:45',3003,39,11,'2025-05-07',12,2,1,4003),(4,'First','2025-05-01','A','D','2025-05-11 10:27:46',3002,39,13,'2025-05-07',14,1,2,4003);
+INSERT INTO `Ticket` VALUES (9,'First','2025-05-01','A','D','2025-05-11 11:10:16',3002,40,16,NULL,NULL,1,NULL,NULL);
 /*!40000 ALTER TABLE `Ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -370,7 +371,7 @@ CREATE TABLE `Users` (
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -379,7 +380,7 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (1,'test',NULL,NULL,'test_email@email.com','test_password','Customer'),(2,'test2','A','D','test2@gmail.com','pass','Customer'),(4,'test3','A','D','test3@gmail.com','pass','Customer'),(6,'test4','A','D','test4@gmail.com','pass','Customer'),(15,'test6','A','D','test6@gmail.com','pass','Customer'),(16,'test7','A','D','test7@gmail.com','pass','Customer'),(17,'test8','A','D','test8@gmail.com','pass','Customer'),(18,'test9','A','D','test9@gmail.com','pass','Customer'),(19,'test10','A','D','test10@gmail.com','pass','Customer'),(20,'test11','A','D','test11@gmail.com','pass','Rep'),(21,'test_1','t','t','test_1@gmail.com','pass','Customer'),(22,'project2_deliverable','Project','Deliverable','project2_deliverable@gmail.com','password','Customer'),(24,'project','Project','2','project@gmail.com','password','Rep'),(25,'project_test','Project','Test','project_test@gmail.com','pass','Customer'),(26,'project_test2','Project','Test2','project_test2@gmail.com','pass','Admin'),(30,'testtestset','aa','a','testesttes@gmail.com','pass','Customer'),(31,'test_admin1','A','D','test_admin1@gmail.com','pass','Customer'),(32,'test_admin_1','A','D','test_admin_1@gmail.com','pass','Customer'),(33,'test_rep_1','A','D','test_rep_1@gmail.com','pass','Rep'),(35,'test_rep_2','A','D','test_rep_2@gmail.com','pass','Rep'),(37,'test_admin_2','A','D','test_admin_2@gmail.com','pass','Admin'),(38,'test_customer_1','A','D','test_customer_1@gmail.com','pass','Customer'),(39,'test_customer_2','A','D','test_customer_2@gmail.com','pass','Customer');
+INSERT INTO `Users` VALUES (1,'test',NULL,NULL,'test_email@email.com','test_password','Customer'),(2,'test2','A','D','test2@gmail.com','pass','Customer'),(4,'test3','A','D','test3@gmail.com','pass','Customer'),(6,'test4','A','D','test4@gmail.com','pass','Customer'),(15,'test6','A','D','test6@gmail.com','pass','Customer'),(16,'test7','A','D','test7@gmail.com','pass','Customer'),(17,'test8','A','D','test8@gmail.com','pass','Customer'),(18,'test9','A','D','test9@gmail.com','pass','Customer'),(19,'test10','A','D','test10@gmail.com','pass','Customer'),(20,'test11','A','D','test11@gmail.com','pass','Rep'),(21,'test_1','t','t','test_1@gmail.com','pass','Customer'),(22,'project2_deliverable','Project','Deliverable','project2_deliverable@gmail.com','password','Customer'),(24,'project','Project','2','project@gmail.com','password','Rep'),(25,'project_test','Project','Test','project_test@gmail.com','pass','Customer'),(26,'project_test2','Project','Test2','project_test2@gmail.com','pass','Admin'),(30,'testtestset','aa','a','testesttes@gmail.com','pass','Customer'),(31,'test_admin1','A','D','test_admin1@gmail.com','pass','Customer'),(32,'test_admin_1','A','D','test_admin_1@gmail.com','pass','Customer'),(33,'test_rep_1','A','D','test_rep_1@gmail.com','pass','Rep'),(35,'test_rep_2','A','D','test_rep_2@gmail.com','pass','Rep'),(37,'test_admin_2','A','D','test_admin_2@gmail.com','pass','Admin'),(38,'test_customer_1','A','D','test_customer_1@gmail.com','pass','Customer'),(39,'test_customer_2','A','D','test_customer_2@gmail.com','pass','Customer'),(40,'test_customer_3','A','D','test_customer_3@gmail.com','pass','Customer');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -422,4 +423,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-11 10:40:03
+-- Dump completed on 2025-05-11 11:10:44
