@@ -122,6 +122,7 @@ private void applyFilters(
                     "jdbc:mysql://localhost:3306/prinInfo_project", "root", "");
                 Statement st = con.createStatement();
         
+                session.setAttribute("lastPage", "searchFlights.jsp");
                 // Load airports
                 ResultSet rs = st.executeQuery("SELECT airport_id FROM Airport");
                 List<String> airportList = new ArrayList<String>();

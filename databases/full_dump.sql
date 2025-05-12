@@ -36,7 +36,7 @@ CREATE TABLE `Aircraft` (
 
 LOCK TABLES `Aircraft` WRITE;
 /*!40000 ALTER TABLE `Aircraft` DISABLE KEYS */;
-INSERT INTO `Aircraft` VALUES ('A319','Mclaughlin and Sons A319',245),('A320','West Ltd A320',350),('A321','Airbus A321',185),('A380','Johnson PLC A380',399),('B737','Smith-Ward B737',196),('B738','Boeing 737-800',160),('B739','Boeing 737-900',170),('B757','Boeing 757',200),('B767','Miller-Stevens B767',329),('B777','Davis-Harper B777',230),('B787','Alexander PLC B787',203),('CRJ7','Hall, King and Harvey CRJ7',465),('E190','Fernandez, Holt and Brown E190',130),('MD80','Fisher, Bennett and Odonnell MD80',284);
+INSERT INTO `Aircraft` VALUES ('A319','Mclaughlin and Sons A319',245),('A320','West Ltd A320',350),('A321','Airbus A321',185),('A380','Johnson PLC A380',399),('B737','Smith-Ward B737',196),('B738','Boeing 737-800',160),('B739','Boeing 737-900',170),('B757','Boeing 757',200),('B767','Miller-Stevens B767',329),('B777','Davis-Harper B777',230),('B787','Alexander PLC B787',203),('CAP10','Airbus A321',1),('CRJ7','Hall, King and Harvey CRJ7',465),('E190','Fernandez, Holt and Brown E190',130),('MD80','Fisher, Bennett and Odonnell MD80',284);
 /*!40000 ALTER TABLE `Aircraft` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,7 +171,7 @@ CREATE TABLE `Flight` (
   CONSTRAINT `flight_ibfk_2` FOREIGN KEY (`dep_airport`) REFERENCES `Airport` (`airport_id`),
   CONSTRAINT `flight_ibfk_3` FOREIGN KEY (`dest_airport`) REFERENCES `Airport` (`airport_id`),
   CONSTRAINT `flight_ibfk_4` FOREIGN KEY (`aircraft_id`) REFERENCES `Aircraft` (`aircraft_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5005 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8002 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +180,7 @@ CREATE TABLE `Flight` (
 
 LOCK TABLES `Flight` WRITE;
 /*!40000 ALTER TABLE `Flight` DISABLE KEYS */;
-INSERT INTO `Flight` (`flight_number`, `dep_airport`, `dest_airport`, `flight_type`, `dep_time`, `arr_time`, `aircraft_id`, `price`, `airline_id`, `atCapacity`) VALUES (1002,'JFK','ORD','Domestic','2025-05-01 11:00:00','2025-05-01 13:00:00','A320',180.00,'AA',0),(1003,'JFK','ATL','Domestic','2025-05-01 16:00:00','2025-05-01 18:15:00','B737',210.00,'AA',0),(1004,'LAX','ATL','Domestic','2025-05-04 17:00:00','2025-05-04 21:30:00','A320',290.00,'AA',0),(1005,'ORD','JFK','Domestic','2025-05-05 13:30:00','2025-05-05 15:45:00','B737',185.00,'AA',0),(2003,'ATL','JFK','Domestic','2025-05-01 19:00:00','2025-05-01 21:15:00','A320',195.00,'DL',0),(2004,'ATL','LAX','Domestic','2025-05-02 12:30:00','2025-05-02 15:30:00','B737',310.00,'DL',0),(2005,'ATL','ORD','Domestic','2025-05-03 14:00:00','2025-05-03 15:45:00','A320',200.00,'DL',0),(2006,'ATL','JFK','Domestic','2025-05-03 21:00:00','2025-05-03 23:00:00','B737',210.00,'DL',0),(3001,'LAX','MIA','Domestic','2025-05-01 10:00:00','2025-05-01 18:00:00','A320',220.00,'DL',0),(3002,'LAX','MIA','Domestic','2025-05-01 13:30:00','2025-05-01 21:15:00','B738',250.00,'DL',0),(3003,'LAX','MIA','Domestic','2025-05-01 16:00:00','2025-05-01 23:45:00','B739',260.00,'DL',0),(3004,'LAX','MIA','Domestic','2025-05-01 19:45:00','2025-05-02 03:30:00','A321',270.00,'DL',0),(3005,'LAX','MIA','Domestic','2025-05-02 02:30:00','2025-05-02 10:15:00','B757',210.00,'DL',0),(3006,'JFK','LHR','International','2025-05-04 01:00:00','2025-05-04 12:00:00','B777',890.00,'UA',0),(3007,'LHR','ATL','International','2025-05-04 20:00:00','2025-05-05 00:00:00','B777',920.00,'UA',0),(3008,'ORD','LHR','International','2025-05-01 22:00:00','2025-05-02 10:45:00','B777',870.00,'UA',0),(3009,'LHR','ORD','International','2025-05-02 14:00:00','2025-05-02 17:15:00','B777',880.00,'UA',0),(4001,'MIA','LAX','Domestic','2025-05-07 10:00:00','2025-05-07 12:30:00','A321',230.00,'AA',0),(4002,'MIA','LAX','Domestic','2025-05-07 13:00:00','2025-05-07 15:35:00','B738',240.00,'AA',0),(4003,'MIA','LAX','Domestic','2025-05-07 17:30:00','2025-05-07 20:05:00','B739',260.00,'AA',0),(4004,'MIA','LAX','Domestic','2025-05-07 21:00:00','2025-05-07 23:35:00','A320',265.00,'AA',0),(4005,'MIA','LAX','Domestic','2025-05-08 00:30:00','2025-05-08 03:05:00','B757',225.00,'AA',0),(4006,'LHR','ATL','International','2025-05-06 14:00:00','2025-05-06 17:45:00','A380',1020.00,'BA',0),(4007,'LHR','LAX','International','2025-05-06 21:00:00','2025-05-07 02:00:00','A380',1145.00,'BA',0),(4008,'LHR','ORD','International','2025-05-05 15:00:00','2025-05-05 18:30:00','A380',975.00,'BA',0),(5001,'ATL','ORD','Domestic','2025-05-08 12:00:00','2025-05-08 14:00:00','B738',215.00,'AA',0),(5002,'JFK','MIA','Domestic','2025-05-08 15:00:00','2025-05-08 18:00:00','A320',250.00,'DL',0),(5003,'LAX','LHR','International','2025-05-08 20:00:00','2025-05-09 12:00:00','A380',1180.00,'BA',0),(5004,'ATL','LHR','International','2025-05-08 21:00:00','2025-05-09 11:00:00','B777',945.00,'UA',0);
+INSERT INTO `Flight` (`flight_number`, `dep_airport`, `dest_airport`, `flight_type`, `dep_time`, `arr_time`, `aircraft_id`, `price`, `airline_id`, `atCapacity`) VALUES (1002,'JFK','ORD','Domestic','2025-05-01 11:00:00','2025-05-01 13:00:00','A320',180.00,'AA',0),(1003,'JFK','ATL','Domestic','2025-05-01 16:00:00','2025-05-01 18:15:00','B737',210.00,'AA',0),(1004,'LAX','ATL','Domestic','2025-05-04 17:00:00','2025-05-04 21:30:00','A320',290.00,'AA',0),(1005,'ORD','JFK','Domestic','2025-05-05 13:30:00','2025-05-05 15:45:00','B737',185.00,'AA',0),(2003,'ATL','JFK','Domestic','2025-05-01 19:00:00','2025-05-01 21:15:00','A320',195.00,'DL',0),(2004,'ATL','LAX','Domestic','2025-05-02 12:30:00','2025-05-02 15:30:00','B737',310.00,'DL',0),(2005,'ATL','ORD','Domestic','2025-05-03 14:00:00','2025-05-03 15:45:00','A320',200.00,'DL',0),(2006,'ATL','JFK','Domestic','2025-05-03 21:00:00','2025-05-03 23:00:00','B737',210.00,'DL',0),(3001,'LAX','MIA','Domestic','2025-05-01 10:00:00','2025-05-01 18:00:00','A320',220.00,'DL',0),(3002,'LAX','MIA','Domestic','2025-05-01 13:30:00','2025-05-01 21:15:00','B738',250.00,'DL',0),(3003,'LAX','MIA','Domestic','2025-05-01 16:00:00','2025-05-01 23:45:00','B739',260.00,'DL',0),(3004,'LAX','MIA','Domestic','2025-05-01 19:45:00','2025-05-02 03:30:00','A321',270.00,'DL',0),(3005,'LAX','MIA','Domestic','2025-05-02 02:30:00','2025-05-02 10:15:00','B757',210.00,'DL',0),(3006,'JFK','LHR','International','2025-05-04 01:00:00','2025-05-04 12:00:00','B777',890.00,'UA',0),(3007,'LHR','ATL','International','2025-05-04 20:00:00','2025-05-05 00:00:00','B777',920.00,'UA',0),(3008,'ORD','LHR','International','2025-05-01 22:00:00','2025-05-02 10:45:00','B777',870.00,'UA',0),(3009,'LHR','ORD','International','2025-05-02 14:00:00','2025-05-02 17:15:00','B777',880.00,'UA',0),(4001,'MIA','LAX','Domestic','2025-05-07 10:00:00','2025-05-07 12:30:00','A321',230.00,'AA',0),(4002,'MIA','LAX','Domestic','2025-05-07 13:00:00','2025-05-07 15:35:00','B738',240.00,'AA',0),(4003,'MIA','LAX','Domestic','2025-05-07 17:30:00','2025-05-07 20:05:00','B739',260.00,'AA',0),(4004,'MIA','LAX','Domestic','2025-05-07 21:00:00','2025-05-07 23:35:00','A320',265.00,'AA',0),(4005,'MIA','LAX','Domestic','2025-05-08 00:30:00','2025-05-08 03:05:00','B757',225.00,'AA',0),(4006,'LHR','ATL','International','2025-05-06 14:00:00','2025-05-06 17:45:00','A380',1020.00,'BA',0),(4007,'LHR','LAX','International','2025-05-06 21:00:00','2025-05-07 02:00:00','A380',1145.00,'BA',0),(4008,'LHR','ORD','International','2025-05-05 15:00:00','2025-05-05 18:30:00','A380',975.00,'BA',0),(5001,'ATL','ORD','Domestic','2025-05-08 12:00:00','2025-05-08 14:00:00','B738',215.00,'AA',0),(5002,'JFK','MIA','Domestic','2025-05-08 15:00:00','2025-05-08 18:00:00','A320',250.00,'DL',0),(5003,'LAX','LHR','International','2025-05-08 20:00:00','2025-05-09 12:00:00','A380',1180.00,'BA',0),(5004,'ATL','LHR','International','2025-05-08 21:00:00','2025-05-09 11:00:00','B777',945.00,'UA',0),(7001,'LAX','MIA','Domestic','2025-05-01 10:00:00','2025-05-01 18:00:00','A320',220.00,'DL',0),(8001,'LAX','MIA','Domestic','2025-05-01 10:00:00','2025-05-01 18:00:00','CAP10',220.00,'DL',1);
 /*!40000 ALTER TABLE `Flight` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,7 +230,7 @@ CREATE TABLE `Reservation` (
   KEY `fk_flight` (`flight_number`),
   CONSTRAINT `fk_customer` FOREIGN KEY (`customer_id`) REFERENCES `Users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_flight` FOREIGN KEY (`flight_number`) REFERENCES `Flight` (`flight_number`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,7 +239,7 @@ CREATE TABLE `Reservation` (
 
 LOCK TABLES `Reservation` WRITE;
 /*!40000 ALTER TABLE `Reservation` DISABLE KEYS */;
-INSERT INTO `Reservation` VALUES (16,40,3002,1250.00,37.50,'2025-05-11 11:10:16');
+INSERT INTO `Reservation` VALUES (37,44,8001,220.00,33.00,'2025-05-11 20:59:31');
 /*!40000 ALTER TABLE `Reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -339,7 +339,7 @@ CREATE TABLE `Ticket` (
   CONSTRAINT `fk_ticket_ret_flight` FOREIGN KEY (`ret_flight_number`) REFERENCES `Flight` (`flight_number`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_ticket_return_reservation` FOREIGN KEY (`return_reservation_id`) REFERENCES `Reservation` (`reservation_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_ticket_user` FOREIGN KEY (`passenger_id`) REFERENCES `Users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -348,7 +348,7 @@ CREATE TABLE `Ticket` (
 
 LOCK TABLES `Ticket` WRITE;
 /*!40000 ALTER TABLE `Ticket` DISABLE KEYS */;
-INSERT INTO `Ticket` VALUES (9,'First','2025-05-01','A','D','2025-05-11 11:10:16',3002,40,16,NULL,NULL,1,NULL,NULL);
+INSERT INTO `Ticket` VALUES (25,NULL,'2025-05-01','A','D','2025-05-11 20:59:31',8001,44,37,NULL,NULL,1,NULL,NULL);
 /*!40000 ALTER TABLE `Ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +371,7 @@ CREATE TABLE `Users` (
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -380,7 +380,7 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (1,'test',NULL,NULL,'test_email@email.com','test_password','Customer'),(2,'test2','A','D','test2@gmail.com','pass','Customer'),(4,'test3','A','D','test3@gmail.com','pass','Customer'),(6,'test4','A','D','test4@gmail.com','pass','Customer'),(15,'test6','A','D','test6@gmail.com','pass','Customer'),(16,'test7','A','D','test7@gmail.com','pass','Customer'),(17,'test8','A','D','test8@gmail.com','pass','Customer'),(18,'test9','A','D','test9@gmail.com','pass','Customer'),(19,'test10','A','D','test10@gmail.com','pass','Customer'),(20,'test11','A','D','test11@gmail.com','pass','Rep'),(21,'test_1','t','t','test_1@gmail.com','pass','Customer'),(22,'project2_deliverable','Project','Deliverable','project2_deliverable@gmail.com','password','Customer'),(24,'project','Project','2','project@gmail.com','password','Rep'),(25,'project_test','Project','Test','project_test@gmail.com','pass','Customer'),(26,'project_test2','Project','Test2','project_test2@gmail.com','pass','Admin'),(30,'testtestset','aa','a','testesttes@gmail.com','pass','Customer'),(31,'test_admin1','A','D','test_admin1@gmail.com','pass','Customer'),(32,'test_admin_1','A','D','test_admin_1@gmail.com','pass','Customer'),(33,'test_rep_1','A','D','test_rep_1@gmail.com','pass','Rep'),(35,'test_rep_2','A','D','test_rep_2@gmail.com','pass','Rep'),(37,'test_admin_2','A','D','test_admin_2@gmail.com','pass','Admin'),(38,'test_customer_1','A','D','test_customer_1@gmail.com','pass','Customer'),(39,'test_customer_2','A','D','test_customer_2@gmail.com','pass','Customer'),(40,'test_customer_3','A','D','test_customer_3@gmail.com','pass','Customer');
+INSERT INTO `Users` VALUES (1,'test',NULL,NULL,'test_email@email.com','test_password','Customer'),(2,'test2','A','D','test2@gmail.com','pass','Customer'),(4,'test3','A','D','test3@gmail.com','pass','Customer'),(6,'test4','A','D','test4@gmail.com','pass','Customer'),(15,'test6','A','D','test6@gmail.com','pass','Customer'),(16,'test7','A','D','test7@gmail.com','pass','Customer'),(17,'test8','A','D','test8@gmail.com','pass','Customer'),(18,'test9','A','D','test9@gmail.com','pass','Customer'),(19,'test10','A','D','test10@gmail.com','pass','Customer'),(20,'test11','A','D','test11@gmail.com','pass','Rep'),(21,'test_1','t','t','test_1@gmail.com','pass','Customer'),(22,'project2_deliverable','Project','Deliverable','project2_deliverable@gmail.com','password','Customer'),(24,'project','Project','2','project@gmail.com','password','Rep'),(25,'project_test','Project','Test','project_test@gmail.com','pass','Customer'),(26,'project_test2','Project','Test2','project_test2@gmail.com','pass','Admin'),(30,'testtestset','aa','a','testesttes@gmail.com','pass','Customer'),(31,'test_admin1','A','D','test_admin1@gmail.com','pass','Customer'),(32,'test_admin_1','A','D','test_admin_1@gmail.com','pass','Customer'),(33,'test_rep_1','A','D','test_rep_1@gmail.com','pass','Rep'),(35,'test_rep_2','A','D','test_rep_2@gmail.com','pass','Rep'),(37,'test_admin_2','A','D','test_admin_2@gmail.com','pass','Admin'),(38,'test_customer_1','A','D','test_customer_1@gmail.com','pass','Customer'),(39,'test_customer_2','A','D','test_customer_2@gmail.com','pass','Customer'),(40,'test_customer_3','A','D','test_customer_3@gmail.com','pass','Customer'),(42,'t1','A','D','t1','pass','Customer'),(43,'t2','A','','t2','pass','Customer'),(44,'t4','A','D','t4','pass','Customer'),(45,'t5','a','a','t5','oass','Customer'),(46,'t6','a','a','t6','pass','Customer');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,12 +396,13 @@ CREATE TABLE `WaitList` (
   `request_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `waitlist_id` int NOT NULL AUTO_INCREMENT,
   `customer_id` int DEFAULT NULL,
+  `notified` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`waitlist_id`),
   KEY `fk_waitlist_flight` (`flight_number`),
   KEY `customer_id` (`customer_id`),
   CONSTRAINT `fk_waitlist_flight` FOREIGN KEY (`flight_number`) REFERENCES `Flight` (`flight_number`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `waitlist_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `Users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -410,7 +411,6 @@ CREATE TABLE `WaitList` (
 
 LOCK TABLES `WaitList` WRITE;
 /*!40000 ALTER TABLE `WaitList` DISABLE KEYS */;
-INSERT INTO `WaitList` VALUES (3002,'2025-05-09 18:45:29',1,38),(3002,'2025-05-09 18:45:35',2,38),(3003,'2025-05-11 09:57:12',3,38);
 /*!40000 ALTER TABLE `WaitList` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -423,4 +423,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-11 11:32:23
+-- Dump completed on 2025-05-11 20:59:53

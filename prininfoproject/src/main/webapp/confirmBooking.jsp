@@ -37,6 +37,15 @@
       }
   }
 
+  String requestClass = request.getParameter("travel_class");
+  if (requestClass != null) {
+    session.setAttribute("travel_class", requestClass);
+  }
+  String override = request.getParameter("travel_class");
+  if (override != null && !override.isEmpty()) {
+      session.setAttribute("travel_class", override);
+  }
+
   String travel_class = (String) session.getAttribute("travel_class");
 
   if (Boolean.FALSE.equals(depAtCapacity) && (retAtCapacity == null || Boolean.FALSE.equals(retAtCapacity))) {

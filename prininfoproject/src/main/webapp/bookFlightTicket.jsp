@@ -22,8 +22,11 @@
       ? retFlights.get(retIndex)
       : null;  
 
-      session.setAttribute("selected_departure_flight", selectedDepFlight);
-
+      String lastPage = (String) session.getAttribute("lastPage");
+      if (lastPage != null && lastPage.equals("searchFlights.jsp")){
+        session.setAttribute("selected_departure_flight", selectedDepFlight);
+      }
+      
       if (selectedRetFlight != null) {
           session.setAttribute("selected_return_flight", selectedRetFlight);
       } else {
