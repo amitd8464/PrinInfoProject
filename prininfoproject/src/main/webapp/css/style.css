@@ -5,27 +5,60 @@ body {
     background-color: #ffffff;
     margin: 0;
     padding: 0;
+}
+
+.page-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+#role{
+    font-size: 10;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #1877F2;
+    color: white;
+    padding: 14px 0;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
+
+.navbar a:hover {
+    opacity: 0.8;
 }
 
 .container {
-    width: 90%;
-    max-width: 500px;
+    width: 100%;
+    max-width: 1000px;
     background-color: #ffffff;
     border: 1px solid #ddd;
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    margin-top: 30px;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    
 }
 
 label {
@@ -52,7 +85,7 @@ input::placeholder {
 }
 
 input[type="submit"] {
-    background-color: #1877F2; /* Facebook Blue */
+    background-color: #1877F2;
     color: #ffffff;
     border: none;
     padding: 14px 0;
@@ -67,4 +100,96 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #145db2;
+}
+
+#logout {
+    margin-top: 30px;
+    font-size: 16px;
+    color: #1877F2;
+    text-decoration: none;
+}
+
+#logout:hover {
+    text-decoration: underline;
+}
+
+select {
+    padding: 12px;
+    font-size: 16px;
+    height: 48px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.flight_options_container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 10;
+}
+
+.flights-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.flights-table th,
+.flights-table td {
+    padding: 14px 16px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.flights-table thead {
+    background-color: #1877F2;
+    color: white;
+}
+
+.flights-table tbody tr:hover {
+    background-color: #f6faff;
+}
+
+#flight_search_results_container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1000px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    margin-top: 30px;    
+}
+
+#continueButton {
+    background-color: #1877F2;
+    color: white;
+    padding: 18px 10px;
+    font-size: 20px;
+    font-weight: 600;
+    border: none;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin: 30px auto 0;
+    display: none; /* hidden by default */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(24, 119, 242, 0.15);
+    cursor: pointer;
+}
+
+#continueButton:hover {
+    background-color: #145db2;
+    transform: translateY(-1px);
 }
